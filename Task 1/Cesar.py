@@ -64,11 +64,11 @@ def make_dataset(file_path, step):
                 break
             text_array.append(re.sub(r'[^a-zA-Z.!? ]', r' ', text))
     del text_array[-1]
-    y_train = torch.tensor([sent_to_index(lines) for lines in text_array[:len(text_array) // 5]])
-    x_train = torch.tensor([sent_to_index(coder.encode(lines)) for lines in text_array[:len(text_array) // 5]])
+    y_train = torch.tensor([sent_to_index(lines) for lines in text_array[len(text_array) // 5:]])
+    x_train = torch.tensor([sent_to_index(coder.encode(lines)) for lines in text_array[len(text_array) // 5:]])
 
-    y_test = torch.tensor([sent_to_index(lines) for lines in text_array[len(text_array) // 5:]])
-    x_test = torch.tensor([sent_to_index(coder.encode(lines)) for lines in text_array[len(text_array) // 5:]])
+    y_test = torch.tensor([sent_to_index(lines) for lines in text_array[:len(text_array) // 5]])
+    x_test = torch.tensor([sent_to_index(coder.encode(lines)) for lines in text_array[:len(text_array) // 5]])
 
     return x_train, y_train, x_test, y_test
 
