@@ -10,14 +10,16 @@ Hаучить модель рекуррентной нейронной сети 
 6 баллов за правильно выполненное задание.
 '''
 
+import torch
 def digit_encoder(x):
-    y = [x[0]]
+    y = torch.zeros_like(x)
+    y[0] = x[0]
     for i in range(1, len(x)):
         if x[i]+x[0] < 10:
-            y.append(x[i]+x[0])
+            y[i] = (x[i]+x[0])
         else:
-            y.append(x[i]+x[0]-10)
+            y[i] = (x[i]+x[0]-10)
     return y
 
-x=[5,7,2,2,6,8,3,2,1,4,5,7,8,9]
-print(x, digit_encoder(x), sep='\n')
+x = torch.randint(low=0, high=9, size=(100,1))
+print(x.view(-1), digit_encoder(x).view(-1), sep='\n')
